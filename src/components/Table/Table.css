@@ -1,0 +1,51 @@
+.table {
+    text-align: center;
+}
+
+.thead th {
+    padding: 10px 25px;
+    background-color: rgb(231, 231, 231);
+}
+
+.thead .current-day {
+    background-color: rgb(203, 245, 254);
+}
+
+.tbody {
+    text-align: right;
+}
+
+.tbody td {
+    padding: 10px 25px;
+    background-color: rgb(231, 231, 231);
+}
+
+.tbody .current-day {
+    background-color: rgb(203, 245, 254);
+}
+
+.tbody .positive-change {
+    background-color: rgb(219, 254, 219);
+}
+
+.tbody .negative-change {
+    background-color: rgb(251, 175, 175);
+}
+
+.align-left {
+    text-align: left;
+}
+
+.text-red {
+    color: rgb(255, 0, 0);
+    font-weight: 600;
+    margin-left: 10px;
+    text-align: right;
+}
+
+.text-green {
+    color: green;
+    font-weight: 600;
+    margin-left: 10px;
+    text-align: right;
+}
