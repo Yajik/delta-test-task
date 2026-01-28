@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, {useState} from "react";
 import { tableData } from "../../mocks/tableData"
 import Chart from "../Chart/Chart";
 import './Table.css'
@@ -44,7 +44,7 @@ function Table() {
                     const isExpanded = expandedRows.has(row.name);
 
                     return (
-                        <>
+                        <React.Fragment key={row.name}>
                             <tr key={row.name} onClick={() => toggleRow(row.name)}>
                                 <td className="align-left">{row.name}</td>
                                 <td className="current-day">{formatNumber(row.currentDay)}</td>
@@ -66,7 +66,7 @@ function Table() {
                                     </td>
                                 </tr>
                             )}
-                        </>
+                        </React.Fragment>
                     );
                 })}
             </tbody>
