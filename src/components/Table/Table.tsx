@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { tableData } from "../../mocks/tableData"
+import Chart from "../Chart/Chart";
 import './Table.css'
 
 function Table() {
-
+    const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
     const formatNumber = (num: number) => new Intl.NumberFormat('ru-RU').format(num);
 
     const getYesterdayClass = (percent: number) =>
@@ -13,6 +15,18 @@ function Table() {
 
     const getSameWeekdayClass = (current: number, sameWeekday: number) =>
         current > sameWeekday ? 'positive-change' : ''
+
+    const toggleRow = (name: string) => {
+        setExpandedRows((prev) => {
+            const newSet = new Set(prev);
+            if (newSet.has(name)) {
+                newSet.delete(name);
+            } else {
+                newSet.add(name);
+            }
+            return newSet;
+        });
+    };
 
     return (
         <table className="table">
@@ -26,21 +40,35 @@ function Table() {
             </thead>
 
             <tbody className="tbody">
-                {tableData.map((row) => (
-                    <tr key={row.name}>
-                        <td className="align-left">{row.name}</td>
-                        <td className="current-day">{formatNumber(row.currentDay)}</td>
-                        <td className={getYesterdayClass(row.yesterday.percent)}>
-                            {formatNumber(row.yesterday.value)}{' '}
-                            <span className={getYesterdayTextColor(row.yesterday.percent)}>
-                                {row.yesterday.percent}%
-                            </span>
-                        </td>
-                        <td className={getSameWeekdayClass(row.currentDay, row.sameWeekday)}>
-                            {formatNumber(row.sameWeekday)}
-                        </td>
-                    </tr>
-                ))}
+                {tableData.map((row) => {
+                    const isExpanded = expandedRows.has(row.name);
+
+                    return (
+                        <>
+                            <tr key={row.name} onClick={() => toggleRow(row.name)}>
+                                <td className="align-left">{row.name}</td>
+                                <td className="current-day">{formatNumber(row.currentDay)}</td>
+                                <td className={getYesterdayClass(row.yesterday.percent)}>
+                                    {formatNumber(row.yesterday.value)}{' '}
+                                    <span className={getYesterdayTextColor(row.yesterday.percent)}>
+                                        {row.yesterday.percent}%
+                                    </span>
+                                </td>
+                                <td className={getSameWeekdayClass(row.currentDay, row.sameWeekday)}>
+                                    {formatNumber(row.sameWeekday)}
+                                </td>
+                            </tr>
+
+                            {isExpanded && (
+                                <tr className="chart-row">
+                                    <td colSpan={4}>
+                                        <Chart rowName={row.name} />
+                                    </td>
+                                </tr>
+                            )}
+                        </>
+                    );
+                })}
             </tbody>
         </table>
     )

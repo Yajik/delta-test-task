@@ -20,6 +20,14 @@
     background-color: rgb(231, 231, 231);
 }
 
+.tbody tr{
+    cursor: pointer;
+}
+
+.tbody .chart-row{
+    cursor: none;
+}
+
 .tbody .current-day {
     background-color: rgb(203, 245, 254);
 }
