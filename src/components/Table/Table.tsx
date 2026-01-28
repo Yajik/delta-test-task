@@ -1,10 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { tableData } from "../../mocks/tableData"
 import Chart from "../Chart/Chart";
 import './Table.css'
 
 function Table() {
-    const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
+    const [expandedRows, setExpandedRows] = useState<Set<string>>(
+        new Set([tableData[0]?.name || ""]) // Открывается первый график по дефолту, для наглядности
+    );
     const formatNumber = (num: number) => new Intl.NumberFormat('ru-RU').format(num);
 
     const getYesterdayClass = (percent: number) =>
