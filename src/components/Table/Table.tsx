@@ -5,20 +5,26 @@ import './Table.css'
 
 function Table() {
     const [expandedRows, setExpandedRows] = useState<Set<string>>(
-        new Set([tableData[0]?.name || ""]) // Открывается первый график по дефолту, для наглядности
+        // Открывается первый график по дефолту, для наглядности
+        new Set([tableData[0]?.name || ""]) 
     );
-    const formatNumber = (num: number) => new Intl.NumberFormat('ru-RU').format(num);
+
+    const formatNumber = (num: number) => new Intl.NumberFormat('ru-RU').format(num); // Разделение больших чисел пробелами
 
     const getYesterdayClass = (percent: number) =>
-        percent < 0 ? 'negative-change' : percent > 0 ? 'positive-change' : '';
+        // Установка цвета ячейки для столбца "вчера", зависит от процента
+        percent < 0 ? 'negative-change' : percent > 0 ? 'positive-change' : ''; 
 
     const getYesterdayTextColor = (percent: number) =>
+        // Установка цвета текста для процента "вчера", зависит от процента
         percent < 0 ? 'text-red' : 'text-green';
 
     const getSameWeekdayClass = (current: number, sameWeekday: number) =>
+        // Установка цвета ячейки для столбца "Этот день недели", зависит от разницы "Текущий день" и "Этот день недели"
         current > sameWeekday ? 'positive-change' : ''
 
     const toggleRow = (name: string) => {
+        // Переключение состояния "Показать/Скрыть" график по нажатию на строку
         setExpandedRows((prev) => {
             const newSet = new Set(prev);
             if (newSet.has(name)) {
@@ -64,6 +70,7 @@ function Table() {
                             {isExpanded && (
                                 <tr className="chart-row">
                                     <td colSpan={4}>
+                                        {/* Подключение компонента графика */}
                                         <Chart rowName={row.name} />
                                     </td>
                                 </tr>

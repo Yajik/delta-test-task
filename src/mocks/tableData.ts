@@ -9,6 +9,7 @@ export interface TableRow{
     sameWeekday: number
 }
 
+// Фиксированные данные для таблицы
 export const tableData: TableRow[] = [
     {
         id: 1,

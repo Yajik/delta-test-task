@@ -5,6 +5,7 @@ type ChartPoint = {
 
 type ChartData = ChartPoint[];
 
+//Фиксированные данные для графиков
 export const chartDataByIndicator: Record<string, ChartData> = {
   "Выручка, руб": [
     { x: "Пн", y: 420_000 },
